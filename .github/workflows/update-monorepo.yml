@@ -31,7 +31,6 @@ jobs:
           git add apps/website
           SHORT_SHA=$(cd apps/website && git rev-parse --short HEAD)
           git commit -m "Update website submodule to ${SHORT_SHA}" || echo "No changes to commit"
-          git push origin main
 
       - name: Set write PAT and push to monorepo
         run: |
