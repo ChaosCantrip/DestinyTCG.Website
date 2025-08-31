@@ -10,4 +10,4 @@ on:
 
 jobs:
   verify-docker-build:
-    uses: ChaosCantrip/DestinyTCG/.github/workflows/update-dev.yml@main
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/build-test.yml@main
