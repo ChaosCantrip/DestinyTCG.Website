@@ -1,0 +1,32 @@
+name: Push Submodule Update to Monorepo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-monorepo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout submodule repo
+        uses: actions/checkout@v3
+
+      - name: Clone monorepo using PAT
+        run: |
+          git clone https://x-access-token:${{ secrets.MONOREPO_PAT }}@github.com/ChaosCantrip/DestinyTCG.git
+          cd DestinyTCG
+          git config user.name "ChaosCantrip [Automated]"
+          git config user.email "dev@chaoscantrip.com"
+
+      - name: Update submodule reference
+        run: |
+          cd apps/website
+          git fetch origin
+          git checkout ${{ github.sha }}
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          cd ../..
+          git add apps/website
+          git commit -m "Updated Website to ${SHORT_SHA}" || echo "No changes to commit"
+          git push origin main
