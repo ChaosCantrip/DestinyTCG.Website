@@ -20,10 +20,6 @@ jobs:
           git config user.name "ChaosCantrip [Automated]"
           git config user.email "dev@chaoscantrip.com"
 
-      - name: Set up PAT for pushing
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.MONOREPO_WRITE_PAT }}@github.com/ChaosCantrip/DestinyTCG.git
-
       - name: Rebase dev onto main
         run: |
           git fetch origin
