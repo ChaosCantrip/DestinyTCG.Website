@@ -22,7 +22,7 @@ jobs:
 
       - name: Update submodule reference
         run: |
-          cd apps/website
+          cd DestinyTCG/apps/website
           git fetch origin
           git checkout ${{ github.sha }}
           SHORT_SHA=$(git rev-parse --short HEAD)
