@@ -20,7 +20,7 @@ jobs:
 
       - name: Rebase dev onto main
         run: |
-          git fetch origin dev main
+          git fetch origin
           git checkout dev || git checkout -b dev
           git rebase origin/main
           git push origin dev --force-with-lease
