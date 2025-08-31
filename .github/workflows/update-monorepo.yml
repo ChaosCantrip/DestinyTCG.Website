@@ -1,0 +1,32 @@
+name: Update Monorepo Submodule Pointer
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-monorepo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout submodule repo (this repo)
+        uses: actions/checkout@v3
+
+      - name: Clone monorepo with submodules
+        run: |
+          git clone --recurse-submodules https://x-access-token:${{ secrets.MONOREPO_PAT }}@github.com/ChaosCantrip/DestinyTCG.git
+          cd DestinyTCG
+          git config user.name "ChaosCantrip [Automated]"
+          git config user.email "dev@chaoscantrip.com"
+
+      - name: Update submodule pointer to triggering commit
+        run: |
+          cd DestinyTCG/apps/website
+          git fetch origin ${{ github.sha }}
+          git checkout ${{ github.sha }}
+          cd ../..
+          git add apps/website
+          SHORT_SHA=$(cd apps/website && git rev-parse --short HEAD)
+          git commit -m "Update website submodule to ${SHORT_SHA}" || echo "No changes to commit"
+          git push origin main
