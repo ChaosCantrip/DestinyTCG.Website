@@ -9,7 +9,7 @@ on:
 jobs:
   submodule-workflow:
     if: github.event.pull_request.merged == true
-    uses: ChaosCantrip/DestinyTCG/.github/workflows/submodule-workflow.yml
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/submodule-workflow.yml@main
     with:
       pr-number: ${{ github.event.pull_request.number }}
       commit-sha: ${{ github.event.pull_request.head.sha }}
