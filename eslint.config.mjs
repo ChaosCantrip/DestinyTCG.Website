@@ -20,6 +20,11 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      "brace-style": ["warn", "allman"],
+    }
+  }
 ];
 
 export default eslintConfig;
